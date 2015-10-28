@@ -22,4 +22,7 @@
 
     <!-- statusbar items tuner -->
     <string name="statusbar_icons_blacklist">Iconos de la barra de estado</string>
+
+    <!-- Screenshot Delete Toast -->
+    <string name="delete_screenshot_toast">Eliminando captura de pantalla</string>
 </resources>
