@@ -3934,6 +3934,12 @@ public final class Settings {
 
 
         /**
+         * Whether to vibrate when quick settings tile is pressed.
+         * @hide
+         */
+        public static final String QUICK_SETTINGS_TILES_VIBRATE = "quick_settings_vibrate";
+
+        /**
          * What color to use for the battery LED while charging - really full (100%)
          * @hide
          */
