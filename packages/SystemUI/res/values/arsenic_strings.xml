@@ -126,4 +126,7 @@
     <string name="qs_menu_item_rows_two">2</string>
     <string name="qs_menu_item_rows_three">3</string>
     <string name="qs_menu_item_rows_four">4</string>
+
+    <!-- Screenrecord Tile -->
+    <string name="quick_settings_screenrecord">Screenrecord</string>
 </resources>
