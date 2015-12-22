@@ -49,4 +49,12 @@
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time">Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
+
+    <!-- Navigation Bar tile -->
+    <string name="quick_settings_navbar_title">Navigation Bar</string>
+    <string name="accessibility_quick_settings_navbar_off">Sync off</string>
+    <string name="accessibility_quick_settings_navbar_on">Sync on</string>
+    <string name="accessibility_quick_settings_navbar_changed_off">Navigation bar turned off</string>
+    <string name="accessibility_quick_settings_navbar_changed_on">Navigation bar turned on</string>
+
 </resources>
