@@ -16,6 +16,9 @@
 -->
 <resources>
 
+    <!-- Vendor warning -->
+    <java-symbol type="string" name="system_error_vendorprint" />
+
     <!-- IME selector notification -->
     <java-symbol type="bool" name="config_show_cmIMESwitcher"/>
 
@@ -28,7 +31,7 @@
     <java-symbol type="string" name="config_rat_3g" />
     <java-symbol type="string" name="config_rat_4g" />
 
-    <!-- Vendor warning -->
-    <java-symbol type="string" name="system_error_vendorprint" />
+    <!-- Notify fingerprint client of successful cancelled authentication -->
+    <java-symbol type="bool" name="config_notifyClientOnFingerprintCancelSuccess" />
 
 </resources>
