@@ -283,6 +283,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
     public static final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
     static public final String SYSTEM_DIALOG_REASON_SCREENSHOT = "screenshot";
 
+    private static final String QS_TILE_TITLE_VISIBILITY =
+            "system:" + Settings.System.QS_TILE_TITLE_VISIBILITY;
+
     private static final String SCREEN_BRIGHTNESS_MODE =
             "system:" + Settings.System.SCREEN_BRIGHTNESS_MODE;
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL =
@@ -718,6 +721,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         mColorExtractor.addOnColorsChangedListener(this);
 
         final TunerService tunerService = Dependency.get(TunerService.class);
+        tunerService.addTunable(this, QS_TILE_TITLE_VISIBILITY);
         tunerService.addTunable(this, SCREEN_BRIGHTNESS_MODE);
         tunerService.addTunable(this, STATUS_BAR_BRIGHTNESS_CONTROL);
         tunerService.addTunable(this, LOCKSCREEN_MEDIA_METADATA);
@@ -6280,6 +6284,16 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
 
     @Override
     public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case QS_TILE_TITLE_VISIBILITY:
+                if (mQSPanel != null) {
+                    mQSPanel.updateResources();
+                }
+                break;
+            default:
+                break;
+        }
+
         if (SCREEN_BRIGHTNESS_MODE.equals(key)) {
             mAutomaticBrightness = newValue != null && Integer.parseInt(newValue)
                     == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
