@@ -105,4 +105,5 @@ interface IStatusBarService
      * Arsenic
      */
     void toggleCameraFlash();
+    void restartUI();
 }
