@@ -878,4 +878,12 @@ public class NetworkControllerImpl extends BroadcastReceiver
             return config;
         }
     }
+
+    /**
+     * Check the advanced data tile setting
+     */
+    public boolean isAdvancedDataTileEnabled() {
+        return Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.QS_EASY_TOGGLE, 0, ActivityManager.getCurrentUser()) == 1;
+    }
 }
