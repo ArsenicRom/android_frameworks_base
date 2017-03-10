@@ -459,6 +459,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 	private boolean mShow4G;
 	private boolean mShow3G;
 
+    private int mMaxKeyguardNotifConfig;
+    private boolean mCustomMaxKeyguard;
+
 
     // XXX: gesture research
     private final GestureRecorder mGestureRec = DEBUG_GESTURES
@@ -504,6 +507,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_COLUMNS_LANDSCAPE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG),
                     false, this, UserHandle.USER_ALL);
                     updateSettings();
 	}
@@ -579,6 +585,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 	  
 	    boolean mShow3G = Settings.System.getIntForUser(resolver,
 		    Settings.System.SHOW_THREEG, 0, UserHandle.USER_CURRENT) == 1;
+
+            mMaxKeyguardNotifConfig = Settings.System.getIntForUser(resolver,
+                    Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, 5, mCurrentUserId);
+
 	}
 
 
@@ -4922,13 +4932,20 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     @Override
     protected int getMaxKeyguardNotifications(boolean recompute) {
-        if (recompute) {
-            mMaxKeyguardNotifications = Math.max(1,
-                    mNotificationPanel.computeMaxKeyguardNotifications(
-                            mMaxAllowedKeyguardNotifications));
-            return mMaxKeyguardNotifications;
+        mCustomMaxKeyguard = Settings.System.getIntForUser(mContext.getContentResolver(),
+            Settings.System.LOCK_SCREEN_CUSTOM_NOTIF, 0, UserHandle.USER_CURRENT) == 1;
+        if (mCustomMaxKeyguard) {
+            return mMaxKeyguardNotifConfig;
+        } else {
+           if (recompute) {
+               mMaxKeyguardNotifications = Math.max(1,
+                       mNotificationPanel.computeMaxKeyguardNotifications(
+                               mMaxAllowedKeyguardNotifications));
+               return mMaxKeyguardNotifications;
+           } else {
+               return mMaxKeyguardNotifications;
+           }
         }
-        return mMaxKeyguardNotifications;
     }
 
     public int getMaxKeyguardNotifications() {
