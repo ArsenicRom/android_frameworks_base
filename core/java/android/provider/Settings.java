@@ -3864,6 +3864,12 @@ public final class Settings {
         public static final String HIDE_LOCKSCREEN_CLOCK = "hide_lockscreen_clock";
 
         /**
+         * show lockscreen alarm
+         *  @hide
+         */
+        public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";
+
+        /**
          * This preference enables showing the power menu on LockScreen.
          * @hide
          */
@@ -5340,6 +5346,14 @@ public final class Settings {
          */
         public static final String LOCK_SCREEN_ALLOW_PRIVATE_NOTIFICATIONS =
                 "lock_screen_allow_private_notifications";
+
+
+        /**
+         * Separate password for encryption and the lockscreen.
+          * @hide
+         */
+        public static final String LOCK_SEPARATE_ENCRYPTION_PASSWORD =
+                "lock_separate_encryption_password";
 
         /**
          * When set by a user, allows notification remote input atop a securely locked screen
