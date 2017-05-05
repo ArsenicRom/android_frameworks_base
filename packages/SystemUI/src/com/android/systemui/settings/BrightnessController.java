@@ -31,6 +31,7 @@ import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.MotionEvent;
+import android.view.View;
 import android.service.vr.IVrManager;
 import android.service.vr.IVrStateCallbacks;
 import android.util.Log;
@@ -325,7 +326,25 @@ public class BrightnessController implements ToggleSlider.Listener {
         }
 
         mVrManager = IVrManager.Stub.asInterface(ServiceManager.getService("vrmanager"));
+    }
 
+    public BrightnessController(Context context, ImageView icon,
+            ToggleSlider control, CheckBox autoBrightness) {
+        this(context, icon, control);
+        mAutoBrightness = autoBrightness;
+        mAutoBrightness.setChecked(Settings.System.getInt(
+            mContext.getContentResolver(), SCREEN_BRIGHTNESS_MODE,
+            SCREEN_BRIGHTNESS_MODE_MANUAL) != SCREEN_BRIGHTNESS_MODE_MANUAL);
+        mAutoBrightness.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked) {
+                Settings.System.putInt(mContext.getContentResolver(),
+                    SCREEN_BRIGHTNESS_MODE,
+                    isChecked ? SCREEN_BRIGHTNESS_MODE_AUTOMATIC :
+                    SCREEN_BRIGHTNESS_MODE_MANUAL);
+                    }
+                });
     }
 
     public void setBackgroundLooper(Looper backgroundLooper) {
