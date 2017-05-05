@@ -42,11 +42,11 @@
         systemui:text="@string/status_bar_settings_auto_brightness_label" />
 
     <CheckBox
-        android:id="@+id/brightness_auto"
+        android:id="@+id/brightness_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/status_bar_settings_auto_brightness_label"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>
