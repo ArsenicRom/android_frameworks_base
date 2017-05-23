@@ -3724,6 +3724,12 @@ public final class Settings {
          */
 
         /**
+         * Whether or not to allow quick settings expansion with one swipe on the fingerprint sensor.
+         * @hide
+         */
+        public static final String STATUS_BAR_QUICK_QS_PULLDOWN_FP = "status_bar_quick_qs_pulldown_fp";
+
+        /**
          * Boolean value on whether to show weather in the statusbar
          * @hide
          */
