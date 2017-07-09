@@ -19,6 +19,6 @@
     <!-- Notifications Battery Really Full -->
     <java-symbol type="integer" name="config_notificationsBatteryReallyFullARGB" />
 
-    <!-- Whether device has dash charging support -->
-    <java-symbol type="bool" name="config_hasDashCharger" />
+  <!-- Sensor Block Per-Package -->
+  <java-symbol type="array" name="config_blockPackagesSensorDrain" />
 </resources>
