@@ -4331,6 +4331,12 @@ public final class Settings {
          public static final String SCREENSHOT_SHUTTER_SOUND = "screenshot_shutter_sound";
 
         /**
+         * Sensor block per-package
+         * @hide
+         */
+        public static final String SENSOR_BLOCK = "sensor_block";
+
+        /**
          * Whether to enable Smart Pixels
          * @hide
          */
