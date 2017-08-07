@@ -3935,7 +3935,7 @@ bool ResTable::getResourceName(uint32_t resID, bool allowUtf8, resource_name* ou
 
     if (p < 0) {
         if (Res_GETPACKAGE(resID)+1 == 0) {
-            ALOGW("No package identifier when getting name for resource number 0x%08x", resID);
+            ALOGV("No package identifier when getting name for resource number 0x%08x", resID);
         } else {
 #ifndef STATIC_ANDROIDFW_FOR_TOOLS
             ALOGW("No known package when getting name for resource number 0x%08x", resID);
@@ -4321,6 +4321,7 @@ ssize_t ResTable::getBagLocked(uint32_t resID, const bag_entry** outBag,
         if (curOff > (dtohl(entry.type->header.size)-sizeof(ResTable_map))) {
             ALOGW("ResTable_map at %d is beyond type chunk data %d",
                  (int)curOff, dtohl(entry.type->header.size));
+            free(set);
             return BAD_TYPE;
         }
         map = (const ResTable_map*)(((const uint8_t*)entry.type) + curOff);
@@ -4333,6 +4334,7 @@ ssize_t ResTable::getBagLocked(uint32_t resID, const bag_entry** outBag,
             if (grp->dynamicRefTable.lookupResourceId(&newName) != NO_ERROR) {
                 ALOGE("Failed resolving ResTable_map name at %d with ident 0x%08x",
                         (int) curOff, (int) newName);
+                free(set);
                 return UNKNOWN_ERROR;
             }
         }

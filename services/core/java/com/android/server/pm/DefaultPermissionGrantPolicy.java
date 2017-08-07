@@ -899,7 +899,7 @@ final class DefaultPermissionGrantPolicy {
         if (!isDefaultPhoneOrSms && pkg.isUpdatedSystemApp()) {
             PackageSetting sysPs = mService.mSettings.getDisabledSystemPkgLPr(pkg.packageName);
             if (sysPs != null) {
-                if (sysPs.pkg.requestedPermissions.isEmpty()) {
+                if (sysPs.pkg == null || sysPs.pkg.requestedPermissions.isEmpty()) {
                     return;
                 }
                 if (!requestedPermissions.equals(sysPs.pkg.requestedPermissions)) {
@@ -1013,7 +1013,7 @@ final class DefaultPermissionGrantPolicy {
                         permissions.clear();
                     }
                     permissions.add(permissionGrant.name);
-                    grantRuntimePermissionsLPw(pkg, permissions, false,
+                    grantRuntimePermissionsLPw(pkg, permissions,
                             permissionGrant.fixed, userId);
                 }
             }

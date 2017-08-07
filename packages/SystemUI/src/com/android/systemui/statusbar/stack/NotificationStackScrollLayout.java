@@ -184,6 +184,7 @@ public class NotificationStackScrollLayout extends ViewGroup
     private boolean mTopPaddingNeedsAnimation;
     private boolean mDimmedNeedsAnimation;
     private boolean mHideSensitiveNeedsAnimation;
+    private boolean mHideSensitiveChanged;
     private boolean mDarkNeedsAnimation;
     private int mDarkAnimationOriginIndex;
     private boolean mActivateNeedsAnimation;
@@ -247,6 +248,13 @@ public class NotificationStackScrollLayout extends ViewGroup
             updateChildren();
             mChildrenUpdateRequested = false;
             getViewTreeObserver().removeOnPreDrawListener(this);
+            if (mHideSensitiveChanged) {
+                mHideSensitiveChanged = false;
+                if (getChildCount() > 0) {
+                    updateContentHeight();
+                    notifyHeightChangeListener((ExpandableView)getChildAt(0));
+                }
+            }
             return true;
         }
     };
@@ -1381,8 +1389,13 @@ public class NotificationStackScrollLayout extends ViewGroup
             }
             case MotionEvent.ACTION_POINTER_UP:
                 onSecondaryPointerUp(ev);
-                mLastMotionY = (int) ev.getY(ev.findPointerIndex(mActivePointerId));
-                mDownX = (int) ev.getX(ev.findPointerIndex(mActivePointerId));
+                final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                if (pointerIndex == -1) {
+                    Log.e(TAG, "Invalid pointerId=" + mActivePointerId + " in onTouchEvent");
+                    break;
+                }
+                mLastMotionY = (int) ev.getY(pointerIndex);
+                mDownX = (int) ev.getX(pointerIndex);
                 break;
         }
         return true;
@@ -3274,6 +3287,7 @@ public class NotificationStackScrollLayout extends ViewGroup
                 mHideSensitiveNeedsAnimation = true;
                 mNeedsAnimation =  true;
             }
+            mHideSensitiveChanged = true;
             requestChildrenUpdate();
         }
     }
@@ -3476,6 +3490,7 @@ public class NotificationStackScrollLayout extends ViewGroup
     }
 
     public void updateEmptyShadeView(boolean visible) {
+        if (mEmptyShadeView == null) return;
         int oldVisibility = mEmptyShadeView.willBeGone() ? GONE : mEmptyShadeView.getVisibility();
         int newVisibility = visible ? VISIBLE : GONE;
         if (oldVisibility != newVisibility) {
@@ -4319,6 +4334,15 @@ public class NotificationStackScrollLayout extends ViewGroup
 
     public void closeControlsIfOutsideTouch(MotionEvent ev) {
         mSwipeHelper.closeControlsIfOutsideTouch(ev);
+    }
+
+    public void updateNotificationView() {
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (child instanceof ActivatableNotificationView) {
+                ((ActivatableNotificationView) child).updateNotificationView();
+            }
+        }
     }
 
     static class AnimationEvent {

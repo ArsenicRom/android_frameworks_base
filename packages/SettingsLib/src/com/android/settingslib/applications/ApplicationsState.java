@@ -649,7 +649,11 @@ public class ApplicationsState {
             }
 
             if (comparator != null) {
-                Collections.sort(filteredApps, comparator);
+                synchronized (mEntriesMap) {
+                    // Locking to ensure that the background handler does not mutate
+                    // the size of AppEntries used for ordering while sorting.
+                    Collections.sort(filteredApps, comparator);
+                }
             }
 
             synchronized (mRebuildSync) {
@@ -1245,7 +1249,7 @@ public class ApplicationsState {
                     return compareResult;
                 }
             }
-            return object1.info.uid - object2.info.uid;
+            return (object1.info != null ? object1.info.uid : 0) - (object2.info != null ? object2.info.uid : 0);
         }
     };
 

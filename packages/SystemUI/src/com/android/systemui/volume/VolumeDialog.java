@@ -119,7 +119,7 @@ public class VolumeDialog implements TunerService.Tunable {
     private ZenFooter mZenFooter;
     private final Object mSafetyWarningLock = new Object();
     private final Accessibility mAccessibility = new Accessibility();
-    private final ColorStateList mActiveSliderTint;
+    private ColorStateList mActiveSliderTint;
     private final ColorStateList mInactiveSliderTint;
     private VolumeDialogMotion mMotion;
     private final int mWindowType;
@@ -156,7 +156,6 @@ public class VolumeDialog implements TunerService.Tunable {
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         mAccessibilityMgr =
                 (AccessibilityManager) mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
-        mActiveSliderTint = ColorStateList.valueOf(Utils.getColorAccent(mContext));
         mInactiveSliderTint = loadColorStateList(R.color.volume_slider_inactive);
 
         initDialog();
@@ -263,6 +262,13 @@ public class VolumeDialog implements TunerService.Tunable {
         mZenPanel = (TunerZenModePanel) mDialog.findViewById(R.id.tuner_zen_mode_panel);
         mZenPanel.init(mZenModeController);
         mZenPanel.setCallback(mZenPanelCallback);
+
+        mActiveSliderTint = ColorStateList.valueOf(Utils.getColorAccent(mContext));
+    }
+
+    protected void updateDialog() {
+        mDialog.dismiss();
+        initDialog();
     }
 
     @Override
@@ -485,9 +491,9 @@ public class VolumeDialog implements TunerService.Tunable {
         if (mAccessibility.mFeedbackEnabled) return 20000;
         if (mHovering) return 16000;
         if (mSafetyWarning != null) return 5000;
-        if (mExpanded || mExpandButtonAnimationRunning) return 5000;
+        if (mExpanded || mExpandButtonAnimationRunning) return 1500;
         if (mActiveStream == AudioManager.STREAM_MUSIC) return 1500;
-        return 3000;
+        return 1500;
     }
 
     protected void dismissH(int reason) {
@@ -853,8 +859,7 @@ public class VolumeDialog implements TunerService.Tunable {
     }
 
     private void updateVolumeRowHeaderVisibleH(VolumeRow row) {
-        final boolean dynamic = row.ss != null && row.ss.dynamic;
-        final boolean showHeaders = mExpanded && (mShowHeaders || dynamic);
+        final boolean showHeaders = mExpanded && mShowHeaders;
         if (row.cachedShowHeaders != showHeaders) {
             row.cachedShowHeaders = showHeaders;
             Util.setVisOrGone(row.header, showHeaders);

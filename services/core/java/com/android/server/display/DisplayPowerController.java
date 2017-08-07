@@ -903,13 +903,16 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
 
     private void animateScreenStateChange(int target, boolean performScreenOffTransition) {
         // If there is already an animation in progress, don't interfere with it.
-        if (mColorFadeOnAnimator.isStarted()
-                || mColorFadeOffAnimator.isStarted()) {
+        if (mColorFadeOnAnimator.isStarted()) {
+            if (target == Display.STATE_ON) {
+                // If display state changed to on, proceed and stop the color fade and turn screen on.
+                mPendingScreenOff = false;
+                return;
+            }
+        }else if (mColorFadeOffAnimator.isStarted()){
             if (target != Display.STATE_ON) {
                 return;
             }
-            // If display state changed to on, proceed and stop the color fade and turn screen on.
-            mPendingScreenOff = false;
         }
 
         // If we were in the process of turning off the screen but didn't quite
@@ -1263,7 +1266,14 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
             return null;
         }
         try {
-            final int n = brightness.length;
+            int n = brightness.length;
+            final int m = lux.length;
+            if (n == 0 || m == 0) {
+              return null;
+            }
+            if (m < n) {
+              n = m;
+            }
             float[] x = new float[n];
             float[] y = new float[n];
             y[0] = normalizeAbsoluteBrightness(brightness[0]);
@@ -1282,6 +1292,9 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
             return spline;
         } catch (IllegalArgumentException ex) {
             Slog.e(TAG, "Could not create auto-brightness spline.", ex);
+            return null;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Slog.e(TAG, "Could not create auto-brightness spline (index fault).", ex);
             return null;
         }
     }

@@ -239,7 +239,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     static final String TAG = "PhoneStatusBar";
     public static final boolean DEBUG = BaseStatusBar.DEBUG;
     public static final boolean SPEW = false;
-    public static final boolean DUMPTRUCK = true; // extra dumpsys info
+    public static final boolean DUMPTRUCK = false; // extra dumpsys info
     public static final boolean DEBUG_GESTURES = false;
     public static final boolean DEBUG_MEDIA = false;
     public static final boolean DEBUG_MEDIA_FAKE_ARTWORK = false;
@@ -855,6 +855,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 maybeEscalateHeadsUp();
             }
         }
+
+        @Override
+        public void onTrustChanged(int userId) {
+            if (!mStatusBarKeyguardViewManager.isShowing()) {
+                return;
+            }
+            boolean prevPublicMode = isLockscreenPublicMode();
+            updatePublicMode();
+            if (prevPublicMode != isLockscreenPublicMode()) {
+                if (mState == StatusBarState.SHADE_LOCKED) {
+                    mGroupManager.collapseAllGroups();
+                }
+                updateStackScrollerState(true, false);
+                updateNotifications();
+            }
+        }
     };
 
     @Override
@@ -1141,6 +1157,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     mHeader = qsContainer.getHeader();
                     initSignalCluster(mHeader);
                     mHeader.setActivityStarter(PhoneStatusBar.this);
+                    mStackScroller.updateNotificationView();
+                    mVolumeComponent.updateDialog();
                 }
             });
         }
@@ -4732,7 +4750,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             for (int i = mCurrentProfiles.size() - 1; i >= 0; i--) {
                 UserInfo userInfo = mCurrentProfiles.valueAt(i);
                 if (mStatusBarKeyguardViewManager.isSecure(userInfo.id)) {
-                    isPublic = true;
+                    isPublic = mKeyguardManager.isDeviceLocked(userInfo.id);
                     break;
                 }
             }
@@ -4793,10 +4811,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         Trace.endSection();
     }
 
-    public void updateStackScrollerState(boolean goingToFullShade, boolean fromShadeLocked) {
+    public void updateStackScrollerState(boolean animateHideSensitive, boolean fromShadeLocked) {
         if (mStackScroller == null) return;
         boolean onKeyguard = mState == StatusBarState.KEYGUARD;
-        mStackScroller.setHideSensitive(isLockscreenPublicMode(), goingToFullShade);
+        mStackScroller.setHideSensitive(isLockscreenPublicMode(), animateHideSensitive);
         mStackScroller.setDimmed(onKeyguard, fromShadeLocked /* animate */);
         mStackScroller.setExpandingEnabled(!onKeyguard);
         ActivatableNotificationView activatedChild = mStackScroller.getActivatedChild();

@@ -1863,8 +1863,18 @@ public class PackageManagerService extends IPackageManager.Stub {
         @Override
         public void onVolumeStateChanged(VolumeInfo vol, int oldState, int newState) {
             if (vol.type == VolumeInfo.TYPE_PRIVATE) {
-                if (vol.state == VolumeInfo.STATE_MOUNTED) {
-                    final String volumeUuid = vol.getFsUuid();
+                final String volumeUuid = vol.getFsUuid();
+                boolean volCurStateMounted = false;
+                // To handle a case where the onVolumeStateChanged callback is called with
+                // volume state MOUNTED, but the current state of volume is changed to
+                // UNMOUNTED/EJECTED state due to asynchronous behaviour of vold.
+                if(volumeUuid != null) {
+                    StorageManager storage = mContext.getSystemService(StorageManager.class);
+                    VolumeInfo currentVol = storage.findVolumeByUuid(volumeUuid);
+                    if(currentVol != null && currentVol.state == VolumeInfo.STATE_MOUNTED)
+                        volCurStateMounted = true;
+                }
+                if (vol.state == VolumeInfo.STATE_MOUNTED && volCurStateMounted) {
 
                     // Clean up any users or apps that were removed or recreated
                     // while this volume was missing
@@ -11588,7 +11598,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                 }
                 if (savedInfo.second == info) {
                     // circled back to the highest ordered item; remove from order list
-                    mOrderResult.remove(savedInfo);
+                    mOrderResult.remove(packageName);
                     if (mOrderResult.size() == 0) {
                         // no more ordered items
                         break;
@@ -15830,7 +15840,7 @@ public class PackageManagerService extends IPackageManager.Stub {
 
     private boolean isCallerAllowedToSilentlyUninstall(int callingUid, String pkgName) {
         if (callingUid == Process.SHELL_UID || callingUid == Process.ROOT_UID
-              || callingUid == Process.SYSTEM_UID) {
+              || UserHandle.getAppId(callingUid) == Process.SYSTEM_UID) {
             return true;
         }
         final int callingUserId = UserHandle.getUserId(callingUid);
