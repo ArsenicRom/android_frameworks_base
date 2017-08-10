@@ -3984,6 +3984,12 @@ public final class Settings {
         public static final String SENSOR_BLOCK = "sensor_block";
 
         /**
+         *
+         * @hide
+         */
+        public static final String QUICK_TILE_ADD = "quick_tile_add";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -10375,3 +10381,4 @@ public final class Settings {
         return packages[0];
     }
 }
+
