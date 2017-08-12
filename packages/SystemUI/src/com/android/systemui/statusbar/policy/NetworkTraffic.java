@@ -296,9 +296,8 @@ public class NetworkTraffic extends TextView {
 
 	    if (mNetworkTrafficColor == Integer.MIN_VALUE
                 || mNetworkTrafficColor == -2) {
-            mNetworkTrafficColor = defaultColor;
+            mNetworkTrafficColor = mIconTint;
         }
-        int mNetworkTrafficColor = mIconTint;
 
 	    setTextColor(mNetworkTrafficColor);
 

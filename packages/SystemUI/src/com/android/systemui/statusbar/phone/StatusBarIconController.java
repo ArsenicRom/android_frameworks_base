@@ -589,7 +589,6 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mCarrierLabel.setTextColor(mIconTint);
 	}
         mBatteryLevelView.setTextColor(getTint(mTintArea, mBatteryLevelView, mIconTint));
-        }
         mNetworkTraffic.setDarkIntensity(mDarkIntensity);
     }
 
