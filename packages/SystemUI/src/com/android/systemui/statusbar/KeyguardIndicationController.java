@@ -82,6 +82,8 @@ public class KeyguardIndicationController {
     private int mTemperature;
     private String mMessageToShowOnScreenOn;
 
+    boolean mShowBatteryInfo;
+
     public KeyguardIndicationController(Context context, KeyguardIndicationTextView textView,
                                         LockIcon lockIcon) {
         mContext = context;
@@ -163,6 +165,9 @@ public class KeyguardIndicationController {
 
     private void updateIndication() {
         if (mVisible) {
+           mShowBatteryInfo = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_BATTERY_INFO, 1, UserHandle.USER_CURRENT) == 1;
+
             // Walk down a precedence-ordered list of what should indication
             // should be shown based on user or device state
             if (!mUserManager.isUserUnlocked(ActivityManager.getCurrentUser())) {
@@ -173,7 +178,7 @@ public class KeyguardIndicationController {
                 mTextView.switchIndication(mTransientIndication);
                 mTextView.setTextColor(mTransientTextColor);
 
-            } else if (mPowerPluggedIn) {
+            } else if (mPowerPluggedIn && mShowBatteryInfo) {
                 String indication = computePowerIndication();
                 if (DEBUG_CHARGING_SPEED) {
                     indication += ",  " + (mChargingWattage / 1000) + " mW";
@@ -209,6 +214,11 @@ public class KeyguardIndicationController {
                 chargingId = hasChargingTime
                         ? R.string.keyguard_indication_charging_time_fast
                         : R.string.keyguard_plugged_in_charging_fast;
+                break;
+            case KeyguardUpdateMonitor.BatteryStatus.CHARGING_DASH:
+                chargingId = hasChargingTime
+                        ? R.string.keyguard_indication_dash_charging_time
+                        : R.string.keyguard_plugged_in_dash_charging;
                 break;
             case KeyguardUpdateMonitor.BatteryStatus.CHARGING_SLOWLY:
                 chargingId = hasChargingTime
