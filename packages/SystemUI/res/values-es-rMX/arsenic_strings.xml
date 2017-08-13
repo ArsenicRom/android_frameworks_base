@@ -23,6 +23,15 @@
     <!-- statusbar items tuner -->
     <string name="statusbar_icons_blacklist">Iconos de la barra de estado</string>
 
+    <!-- Music QS Tile -->
+    <string name="quick_settings_music_label">Musica</string>
+    <string name="quick_settings_music_play">Reproducir</string>
+    <string name="quick_settings_music_pause">Pausar</string>
+
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Eliminando captura de pantalla</string>
+
+    <!-- Language\Locale Tile -->
+    <string name="quick_settings_locale_label">Lenguaje</string>
+    <string name="quick_settings_locale_more_locales_toast">Favor de configurar multiples lenguajes para activar la funcionalidad</string>
 </resources>
