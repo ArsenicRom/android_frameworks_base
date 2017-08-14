@@ -28,6 +28,15 @@
     <string name="quick_settings_music_play">Reproducir</string>
     <string name="quick_settings_music_pause">Pausar</string>
 
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Captura Pantalla</string>
+
+    <!-- Brightness QS Tile -->
+    <string name="quick_settings_brightness">Brillo</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Reiniciar</string>
+
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Eliminando captura de pantalla</string>
 
