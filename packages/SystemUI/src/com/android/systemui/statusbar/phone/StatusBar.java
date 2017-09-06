@@ -6173,6 +6173,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SYSTEM_UI_THEME),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_FOOTER_WARNINGS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6183,6 +6186,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         public void update() {
             setBatterySaverWarning();
             updateTheme();
+            setQsPanelOptions();
         }
     }
 
@@ -6193,6 +6197,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                 UserHandle.USER_CURRENT);
         if (mBatterySaverWarningColor != 0) {
             mBatterySaverWarningColor = Utils.getColorAttr(mContext, android.R.attr.colorError);
+        }
+    }
+
+    private void setQsPanelOptions() {
+        if (mQSPanel != null) {
+            mQSPanel.updateSettings();
         }
     }
 
