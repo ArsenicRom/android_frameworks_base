@@ -28,4 +28,7 @@
     <java-symbol type="string" name="config_rat_3g" />
     <java-symbol type="string" name="config_rat_4g" />
 
+    <!-- Vendor warning -->
+    <java-symbol type="string" name="system_error_vendorprint" />
+
 </resources>
