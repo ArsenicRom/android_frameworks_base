@@ -2203,8 +2203,9 @@ class ActivityStarter {
 
     private boolean shouldExcludeFromRecents(final Intent intent, final int userId)
             throws RemoteException {
-        return AppGlobals.getPackageManager().isComponentProtected(
-                null, -1, intent.getComponent(), userId);
+        return intent.getComponent() != null &&
+                AppGlobals.getPackageManager().isComponentProtected(
+                        null, -1, intent.getComponent(), userId);
     }
 
     boolean clearPendingActivityLaunchesLocked(String packageName) {

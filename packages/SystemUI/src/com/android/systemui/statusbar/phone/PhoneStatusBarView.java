@@ -18,12 +18,6 @@ package com.android.systemui.statusbar.phone;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.ContentObserver;
-import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.EventLog;
 import android.view.MotionEvent;
@@ -42,6 +36,13 @@ public class PhoneStatusBarView extends PanelBar {
     private static final boolean DEBUG_GESTURES = false;
 
     PhoneStatusBar mBar;
+
+    private int mBasePaddingBottom;
+    private int mBasePaddingLeft;
+    private int mBasePaddingRight;
+    private int mBasePaddingTop;
+
+    private ViewGroup mStatusBarContents;
 
     boolean mIsFullyOpenedPanel = false;
     private final PhoneStatusBarTransitions mBarTransitions;
@@ -121,11 +122,30 @@ public class PhoneStatusBarView extends PanelBar {
                 UserHandle.USER_CURRENT);
     }
 
+    public void shiftStatusBarItems(int horizontalShift, int verticalShift) {
+        if (mStatusBarContents == null) {
+            return;
+        }
+
+        mStatusBarContents.setPaddingRelative(mBasePaddingLeft + horizontalShift,
+                mBasePaddingTop + verticalShift,
+                mBasePaddingRight + horizontalShift,
+                mBasePaddingBottom - verticalShift);
+        invalidate();
+    }
+
     @Override
     public void onFinishInflate() {
         mCarrierLabel = (TextView) findViewById(R.id.statusbar_carrier_text);
         updateVisibilities();
         mBarTransitions.init();
+
+        mStatusBarContents = (ViewGroup) findViewById(R.id.status_bar_contents);
+
+        mBasePaddingLeft = mStatusBarContents.getPaddingStart();
+        mBasePaddingTop = mStatusBarContents.getPaddingTop();
+        mBasePaddingRight = mStatusBarContents.getPaddingEnd();
+        mBasePaddingBottom = mStatusBarContents.getPaddingBottom();
     }
 
     private void updateVisibilities() {
