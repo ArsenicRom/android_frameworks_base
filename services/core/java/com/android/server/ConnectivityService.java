@@ -1346,16 +1346,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Override
     public LinkProperties getLinkProperties(Network network) {
         enforceAccessPermission();
-        return getLinkProperties(getNetworkAgentInfoForNetwork(network));
-    }
-
-    private LinkProperties getLinkProperties(NetworkAgentInfo nai) {
-        if (nai == null) {
-            return null;
+        NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
+        if (nai != null) {
+            synchronized (nai) {
+                return new LinkProperties(nai.linkProperties);
+            }
         }
-        synchronized (nai) {
-            return new LinkProperties(nai.linkProperties);
-        }
+        return null;
     }
 
     private NetworkCapabilities getNetworkCapabilitiesInternal(NetworkAgentInfo nai) {
@@ -3227,8 +3224,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceAccessPermission();
         enforceInternetPermission();
 
-        // TODO: execute this logic on ConnectivityService handler.
-        final NetworkAgentInfo nai;
+        NetworkAgentInfo nai;
         if (network == null) {
             nai = getDefaultNetwork();
         } else {
@@ -3239,22 +3235,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
         // Revalidate if the app report does not match our current validated state.
-        if (hasConnectivity == nai.lastValidated) {
-            return;
-        }
+        if (hasConnectivity == nai.lastValidated) return;
         final int uid = Binder.getCallingUid();
         if (DBG) {
             log("reportNetworkConnectivity(" + nai.network.netId + ", " + hasConnectivity +
                     ") by " + uid);
         }
-        // Validating a network that has not yet connected could result in a call to
-        // rematchNetworkAndRequests() which is not meant to work on such networks.
-        if (!nai.everConnected) {
-            return;
-        }
-        LinkProperties lp = getLinkProperties(nai);
-        if (isNetworkWithLinkPropertiesBlocked(lp, uid, false)) {
-            return;
         synchronized (mVpns) {
             synchronized (nai) {
                 // Validating a network that has not yet connected could result in a call to
@@ -5086,7 +5072,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!newNetwork.networkCapabilities.equalRequestableCapabilities(nc)) {
             Slog.wtf(TAG, String.format(
                     "BUG: %s changed requestable capabilities during rematch: %s -> %s",
-                    newNetwork.name(), nc, newNetwork.networkCapabilities));
+                    nc, newNetwork.networkCapabilities));
         }
         if (newNetwork.getCurrentScore() != score) {
             Slog.wtf(TAG, String.format(
