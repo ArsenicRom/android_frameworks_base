@@ -4184,14 +4184,6 @@ public final class Settings {
         public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
 
         /**
-         * 0 - wallpaper based
-         * 1 - force light
-         * 2 - force dark
-         * @hide
-         */
-        public static final String SYSTEM_UI_THEME = "system_ui_theme";
-
-        /**
          * Whether to show the battery bar
          * @hide
          */
@@ -7581,6 +7573,15 @@ public final class Settings {
          * @hide
          */
         public static final String NIGHT_BRIGHTNESS_VALUE = "night_brightness_value";
+
+        /**
+         * 0 - Automatic (Wallpaper based)
+         * 1 - Light
+         * 2 - Dark
+         * 3 - Black
+         * @hide
+         */
+        public static final String DEVICE_THEME = "device_theme";
 
         /**
          * This are the settings to be backed up.
