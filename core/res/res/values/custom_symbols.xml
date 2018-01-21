@@ -49,4 +49,7 @@
     <!-- Enable sms authorization framework -->
     <java-symbol type="bool" name="config_sms_authorization_enabled" />
 
+    <!-- Force doze notifications -->
+    <java-symbol type="bool" name="config_canForceDozeNotifications" />
+
 </resources>
