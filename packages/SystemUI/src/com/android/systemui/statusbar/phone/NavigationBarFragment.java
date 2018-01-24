@@ -696,4 +696,10 @@ public class NavigationBarFragment extends Fragment implements Callbacks {
         fragmentHost.addTagListener(TAG, listener);
         return navigationBarView;
     }
+
+    public void setPulseColors(boolean colorizedMedia, int[] colors) {
+        if (mNavigationBarView != null) {
+            mNavigationBarView.setPulseColors(colorizedMedia, colors);
+        }
+    }
 }

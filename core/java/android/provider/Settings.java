@@ -5851,6 +5851,12 @@ public final class Settings {
         public static final int LOCATION_MODE_HIGH_ACCURACY = 3;
 
         /**
+         * Whether to use automatic color for Pulse
+         * @hide
+         */
+        public static final String PULSE_AUTO_COLOR = "pulse_auto_color";
+
+        /**
          * A flag containing settings used for biometric weak
          * @hide
          */
