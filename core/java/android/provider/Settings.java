@@ -4358,6 +4358,12 @@ public final class Settings {
         public static final String FORCE_AMBIENT_FOR_MEDIA = "force_ambient_for_media";
 
         /**
+         * Current theme overlay
+         * @hide
+         */
+        public static final String SYSTEM_THEME_CURRENT_OVERLAY = "system_theme_current_overlay";
+
+        /**
          * Show or hide clock
          * 0 - hide
          * 1 - show (default)
@@ -4648,7 +4654,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_CUSTOM_HEADER_PROVIDER);
             PRIVATE_SETTINGS.add(STATUS_BAR_CUSTOM_HEADER_IMAGE);
             PRIVATE_SETTINGS.add(SCREENSHOT_DEFAULT_MODE);
-<<<<<<< HEAD
             PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_STYLE);
             PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK_SECONDS);
@@ -4657,9 +4662,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_POSITION);
-=======
             PRIVATE_SETTINGS.add(SYSTEM_THEME_STYLE);
->>>>>>> ec8ff7f... [1/2] base: configure SystemUI theme
         }
 
         /**
