@@ -373,7 +373,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 	    ((Clock)mClock).updateSettings();
             ((Clock)mCenterClock).updateSettings();
             ((Clock)mLeftClock).updateSettings();
-        } catch (Exception e) {    
+            mStatusBarComponent.updateBatterySettings();
+        } catch (Exception e) {
             // never ever crash here
             Slog.e(TAG, "updateSettings(animate)", e);
           }
