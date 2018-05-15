@@ -3189,7 +3189,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     public boolean isUsingDarkTheme() {
         OverlayInfo systemuiThemeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.dark",
+            systemuiThemeInfo = mOverlayManager.getOverlayInfo("org.lineageos.overlay.dark",
                     mCurrentUserId);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -5256,9 +5256,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
         if (isUsingDarkTheme() != useDarkTheme) {
             try {
-                mOverlayManager.setEnabled("com.android.system.theme.dark",
-                        useDarkTheme, mCurrentUserId);
-                mOverlayManager.setEnabled("com.android.settings.theme.dark",
+                mOverlayManager.setEnabled("org.lineageos.overlay.dark",
                         useDarkTheme, mCurrentUserId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
