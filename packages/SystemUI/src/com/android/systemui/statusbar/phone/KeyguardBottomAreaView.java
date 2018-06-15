@@ -177,6 +177,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
 
     // omni additions
     private boolean mShowIndicator = true;
+    private boolean mShowLockicon;
 
     public KeyguardBottomAreaView(Context context) {
         this(context, null);
@@ -828,6 +829,8 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
 
     public void setDozing(boolean dozing, boolean animate) {
         mDozing = dozing;
+        boolean mShowLockicon = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.HIDE_LOCKSCREEN_ICON, 0, UserHandle.USER_CURRENT) == 0;
 
         updateCameraVisibility();
         updateLeftAffordanceIcon();
@@ -836,8 +839,8 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
             mLockIcon.setVisibility(INVISIBLE);
             mOverlayContainer.setVisibility(INVISIBLE);
         } else {
-            mLockIcon.setVisibility(VISIBLE);
-            mOverlayContainer.setVisibility(VISIBLE);
+            mLockIcon.setVisibility(mShowLockicon ? View.VISIBLE : View.GONE);
+            mOverlayContainer.setVisibility(mShowLockicon ? View.VISIBLE : View.GONE);
             if (animate) {
                 startFinishDozeAnimation();
             }
