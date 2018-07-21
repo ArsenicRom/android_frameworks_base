@@ -891,6 +891,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean mGlobalActionsOnLockDisable;
 
+    private boolean mUseGestureButton;
+    private GestureButton mGestureButton;
+    private boolean mGestureButtonRegistered;
+
     // Fallback actions by key code.
     private final SparseArray<KeyCharacterMap.FallbackAction> mFallbackActions =
             new SparseArray<KeyCharacterMap.FallbackAction>();
@@ -1198,6 +1202,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.LOCK_POWER_MENU_DISABLED), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.USE_BOTTOM_GESTURE_NAVIGATION), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2983,12 +2990,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mGlobalActionsOnLockDisable = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.LOCK_POWER_MENU_DISABLED, 1,
                     UserHandle.USER_CURRENT) != 0;
+
+            mUseGestureButton = Settings.System.getIntForUser(resolver,
+                    Settings.System.USE_BOTTOM_GESTURE_NAVIGATION, 0,
+                    UserHandle.USER_CURRENT) != 0;
         }
         synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
             PolicyControl.reloadFromSetting(mContext);
         }
         if (updateRotation) {
             updateRotation(true);
+        }
+        if (mUseGestureButton && !mHasNavigationBar && !mGestureButtonRegistered) {
+            mGestureButton = new GestureButton(mContext, this);
+            mWindowManagerFuncs.registerPointerEventListener(mGestureButton);
+            mGestureButtonRegistered = true;
+        }
+        if (mGestureButtonRegistered && !mUseGestureButton) {
+            mWindowManagerFuncs.unregisterPointerEventListener(mGestureButton);
+            mGestureButtonRegistered = false;
         }
     }
 
@@ -4976,7 +4996,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return mSearchManager;
     }
 
-    private void preloadRecentApps() {
+    protected void preloadRecentApps() {
         mPreloadedRecentApps = true;
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
@@ -4984,7 +5004,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
-    private void cancelPreloadRecentApps() {
+    protected void cancelPreloadRecentApps() {
         if (mPreloadedRecentApps) {
             mPreloadedRecentApps = false;
             StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
@@ -4994,7 +5014,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
-    private void toggleRecentApps() {
+    protected void toggleRecentApps() {
         mPreloadedRecentApps = false; // preloading no longer needs to be canceled
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
@@ -5379,6 +5399,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     displayFrames, pf, df, of, vf, dcf, sysui, isKeyguardShowing);
             if (updateSysUiVisibility) {
                 updateSystemUiVisibilityLw();
+            }
+
+            if (!mHasNavigationBar && mUseGestureButton && mGestureButton != null) {
+                mGestureButton.navigationBarPosition(displayFrames);
             }
         }
         layoutScreenDecorWindows(displayFrames, pf, df, dcf);
@@ -9991,5 +10015,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return true;
         }
         return false;
+    }
+
+    public boolean isGestureButtonRegion(int x, int y) {
+        if (!mUseGestureButton || mGestureButton == null) {
+            return false;
+        }
+        return mGestureButton.isGestureButtonRegion(x, y);
+    }
+
+    public boolean isGestureButtonEnabled() {
+        return mUseGestureButton;
     }
 }
