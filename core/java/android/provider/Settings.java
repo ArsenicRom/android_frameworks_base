@@ -4212,6 +4212,14 @@ public final class Settings {
         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
 
         /**
+         * @hide
+         */
+        public static final String OMNI_NAVIGATION_BAR_RECENTS = "navigation_bar_recents";
+
+        /** @hide */
+        private static final Validator OMNI_NAVIGATION_BAR_RECENTS_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * show clear all recents button
          * @hide
          */
@@ -4843,7 +4851,8 @@ public final class Settings {
             OMNI_LOCKSCREEN_WEATHER_ENABLED,
             BURN_IN_PROTECTION,
             BURN_IN_PROTECTION_INTERVAL,
-            USE_OLD_MOBILETYPE
+            USE_OLD_MOBILETYPE,
+            OMNI_NAVIGATION_BAR_RECENTS
         };
 
         /**
@@ -4978,6 +4987,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER);
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER_DELAY);
             PRIVATE_SETTINGS.add(PROXIMITY_AUTO_SPEAKER_INCALL_ONLY);
+            PRIVATE_SETTINGS.add(OMNI_NAVIGATION_BAR_RECENTS);
         }
 
         /**
@@ -5072,6 +5082,7 @@ public final class Settings {
             VALIDATORS.put(BURN_IN_PROTECTION, BURN_IN_PROTECTION_VALIDATOR);
             VALIDATORS.put(BURN_IN_PROTECTION_INTERVAL, BURN_IN_PROTECTION_INTERVAL_VALIDATOR);
             VALIDATORS.put(USE_OLD_MOBILETYPE, USE_OLD_MOBILETYPE_VALIDATOR);
+            VALIDATORS.put(OMNI_NAVIGATION_BAR_RECENTS, OMNI_NAVIGATION_BAR_RECENTS_VALIDATOR);
         }
 
         /**
