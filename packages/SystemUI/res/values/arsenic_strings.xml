@@ -50,6 +50,9 @@
     <string name="keyguard_indication_dash_charging_time">Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
 
+    <!-- Camera tile -->
+    <string name="camera_title_tile">Camera</string>
+
     <!-- Navigation Bar tile -->
     <string name="quick_settings_navbar_title">Navigation Bar</string>
     <string name="accessibility_quick_settings_navbar_off">Sync off</string>
