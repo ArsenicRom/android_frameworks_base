@@ -7652,4 +7652,9 @@ public class WindowManagerService extends IWindowManager.Stub
     public boolean isGestureButtonEnabled() {
         return this.mPolicy.isGestureButtonEnabled();
     }
+
+    @Override
+    public void screenRecordAction(int mode) {
+        mPolicy.screenRecordAction(mode);
+    }
 }
