@@ -235,7 +235,7 @@ public final class PowerManagerService extends SystemService
     // Persistent property for last reboot reason
     private static final String LAST_REBOOT_PROPERTY = "persist.sys.boot.reason";
 
-    private static final int DEFAULT_BUTTON_ON_DURATION = 5 * 1000;
+    private static final int DEFAULT_BUTTON_ON_DURATION = 1 * 1000;
 
     private static final float PROXIMITY_NEAR_THRESHOLD = 5.0f;
 
