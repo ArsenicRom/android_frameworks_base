@@ -4718,6 +4718,22 @@ public final class Settings {
         public static final String SCREENSHOT_TYPE = "screenshot_type";
 
         /**
+         * @hide
+         */
+        public static final String BURN_IN_PROTECTION = "burn_in_protection";
+
+        /** @hide */
+        public static final Validator BURN_IN_PROTECTION_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * @hide
+         */
+        public static final String BURN_IN_PROTECTION_INTERVAL = "burn_in_protection_interval";
+
+        /** @hide */
+        private static final Validator BURN_IN_PROTECTION_INTERVAL_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4778,6 +4794,8 @@ public final class Settings {
             DISPLAY_COLOR_MODE,
             OMNIJAWS_WEATHER_ICON_PACK,
             OMNI_LOCKSCREEN_WEATHER_ENABLED
+            BURN_IN_PROTECTION,
+            BURN_IN_PROTECTION_INTERVAL,
         };
 
         /**
@@ -4906,6 +4924,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_COLUMNS_LANDSCAPE);
             PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
             PRIVATE_SETTINGS.add(OMNI_LOCKSCREEN_WEATHER_ENABLED);
+            PRIVATE_SETTINGS.add(BURN_IN_PROTECTION);
+            PRIVATE_SETTINGS.add(BURN_IN_PROTECTION_INTERVAL);
         }
 
         /**
@@ -4997,6 +5017,8 @@ public final class Settings {
             VALIDATORS.put(OMNIJAWS_WEATHER_ICON_PACK, OMNIJAWS_WEATHER_ICON_PACK_VALIDATOR);
             VALIDATORS.put(OMNI_LOCKSCREEN_WEATHER_ENABLED,
                     OMNI_LOCKSCREEN_WEATHER_ENABLED_VALIDATOR);
+            VALIDATORS.put(BURN_IN_PROTECTION, BURN_IN_PROTECTION_VALIDATOR);
+            VALIDATORS.put(BURN_IN_PROTECTION_INTERVAL, BURN_IN_PROTECTION_INTERVAL_VALIDATOR);
         }
 
         /**
