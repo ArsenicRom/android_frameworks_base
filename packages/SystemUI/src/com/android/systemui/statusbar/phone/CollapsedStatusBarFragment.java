@@ -70,7 +70,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private View mOperatorNameFrame;
     private ClockController mClockController;
     private boolean mIsClockBlacklisted;
-    private ContentResolver mContentResolver;
 
     // custom carrier label
     private View mCustomCarrierLabel;
@@ -101,6 +100,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
        }
     }
     private SettingsObserver mSettingsObserver = new SettingsObserver(mHandler);
+    private ContentResolver mContentResolver;
 
     private SignalCallback mSignalCallback = new SignalCallback() {
         @Override
@@ -115,9 +115,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mKeyguardMonitor = Dependency.get(KeyguardMonitor.class);
         mNetworkController = Dependency.get(NetworkController.class);
         mStatusBarComponent = SysUiServiceProvider.getComponent(getContext(), StatusBar.class);
-
-        Dependency.get(TunerService.class).addTunable(this,
-                StatusBarIconController.ICON_BLACKLIST);
     }
 
     @Override
@@ -141,11 +138,12 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mCustomCarrierLabel = mStatusBar.findViewById(R.id.statusbar_carrier_text);
         mWeatherTextView = mStatusBar.findViewById(R.id.weather_temp);
         mWeatherImageView = mStatusBar.findViewById(R.id.weather_image);
-        updateSettings(false);
         showSystemIconArea(false);
         showClock(false);
         initEmergencyCryptkeeperText();
         initOperatorName();
+        mSettingsObserver.observe();
+        updateSettings(true);
     }
 
     @Override
