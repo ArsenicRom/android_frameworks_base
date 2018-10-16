@@ -5019,6 +5019,15 @@ public final class Settings {
         public static final int SYSTEM_THEME_STYLE_BLACK = 3;
 
         /**
+         * 0 - Default
+         * 1 - Round with ring
+         * 2 - Two-toned round with ring
+         * 3 - Squircle with ring
+         * @hide
+         */
+        public static final String QS_TILE_STYLE = "qs_tile_style";
+
+        /**
          * Whether to display qs tile titles in the qs panel
          * @hide
          */
@@ -5477,7 +5486,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_HIDE_NOTCH);
             PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_STATUS_BAR);
             PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_INDICATOR_DISPLAY);
-	    PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_ICON);
+	        PRIVATE_SETTINGS.add(HIDE_LOCKSCREEN_ICON);
+            PRIVATE_SETTINGS.add(QS_TILE_STYLE);       
         }
 
         /**
