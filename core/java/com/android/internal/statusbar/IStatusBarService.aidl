@@ -17,6 +17,7 @@
 package com.android.internal.statusbar;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -105,6 +106,11 @@ interface IStatusBarService
      * Arsenic
      */
     void toggleCameraFlash();
+    void setAutoRotate(boolean enabled);
     void restartUI();
-    void toggleOrientationListener(boolean enable);
+    //void toggleRecentApps();
+    //void toggleSplitScreen();
+    //void startAssist(in Bundle args);
+    //void cancelPreloadRecentApps();
+    //void preloadRecentApps();
 }

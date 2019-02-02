@@ -16,9 +16,13 @@
 
 package com.android.systemui.statusbar.phone;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.DisplayCutout;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.WindowInsets;
 
@@ -47,7 +51,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
     private final HeadsUpManagerPhone mHeadsUpManager;
     private final NotificationStackScrollLayout mStackScroller;
     private final HeadsUpStatusBarView mHeadsUpStatusBarView;
-    private final ClockController mClockController;
+    private final View mClockView;
     private final DarkIconDispatcher mDarkIconDispatcher;
     private final NotificationPanelView mPanelView;
     private final Consumer<ExpandableNotificationRow>
@@ -72,7 +76,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
                 statusbarView.findViewById(R.id.heads_up_status_bar_view),
                 statusbarView.findViewById(R.id.notification_stack_scroller),
                 statusbarView.findViewById(R.id.notification_panel),
-                new ClockController(statusbarView);
+                statusbarView.findViewById(R.id.clock));
     }
 
     @VisibleForTesting
@@ -82,7 +86,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
             HeadsUpStatusBarView headsUpStatusBarView,
             NotificationStackScrollLayout stackScroller,
             NotificationPanelView panelView,
-            ClockController clockController) {
+            View clockView) {
         mNotificationIconAreaController = notificationIconAreaController;
         mHeadsUpManager = headsUpManager;
         mHeadsUpManager.addListener(this);
@@ -97,7 +101,7 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
         mStackScroller.addOnExpandedHeightListener(mSetExpandedHeight);
         mStackScroller.addOnLayoutChangeListener(mStackScrollLayoutChangeListener);
         mStackScroller.setHeadsUpAppearanceController(this);
-        mClockController = clockController;
+        mClockView = clockView;
         mDarkIconDispatcher = Dependency.get(DarkIconDispatcher.class);
         mDarkIconDispatcher.addDarkReceiver(this);
     }
@@ -209,21 +213,22 @@ public class HeadsUpAppearanceController implements OnHeadsUpChangedListener,
     }
 
     private void setShown(boolean isShown) {
+        final int clockStyle = Settings.System.getIntForUser(mClockView.getContext().getContentResolver(),
+                Settings.System.STATUSBAR_CLOCK_STYLE, 0, UserHandle.USER_CURRENT);
         if (mShown != isShown) {
-            View clockView = mClockController.getClock();
-            boolean isRightClock = clockView.getId() == R.id.clock_right;
             mShown = isShown;
             if (isShown) {
                 mHeadsUpStatusBarView.setVisibility(View.VISIBLE);
                 CrossFadeHelper.fadeIn(mHeadsUpStatusBarView, CONTENT_FADE_DURATION /* duration */,
                         CONTENT_FADE_DELAY /* delay */);
-                if (!isRightClock) {
-                    CrossFadeHelper.fadeOut(clockView, CONTENT_FADE_DURATION/* duration */,
-                            0 /* delay */, () -> clockView.setVisibility(View.INVISIBLE));
+                CrossFadeHelper.fadeOut(mClockView, CONTENT_FADE_DURATION/* duration */,
+                        0 /* delay */, () -> mClockView.setVisibility(View.INVISIBLE));
             } else {
-                if (!isRightClock) {
-                    CrossFadeHelper.fadeIn(clockView, CONTENT_FADE_DURATION /* duration */,
+                if (clockStyle == 0) {
+                    CrossFadeHelper.fadeIn(mClockView, CONTENT_FADE_DURATION /* duration */,
                             CONTENT_FADE_DELAY /* delay */);
+                } else {
+                    mClockView.setVisibility(View.GONE);
                 }
                 CrossFadeHelper.fadeOut(mHeadsUpStatusBarView, CONTENT_FADE_DURATION/* duration */,
                         0 /* delay */, () -> mHeadsUpStatusBarView.setVisibility(View.GONE));

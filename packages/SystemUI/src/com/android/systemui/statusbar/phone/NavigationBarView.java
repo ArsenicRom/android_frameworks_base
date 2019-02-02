@@ -141,8 +141,6 @@ public class NavigationBarView extends FrameLayout implements PluginListener<Nav
     private KeyButtonDrawable mAccessibilityIcon;
     private TintedKeyButtonDrawable mRotateSuggestionIcon;
 
-    private boolean mFullGestureMode;
-
     private GestureHelper mGestureHelper;
     private final DeadZone mDeadZone;
     private boolean mDeadZoneConsuming = false;
@@ -725,24 +723,13 @@ public class NavigationBarView extends FrameLayout implements PluginListener<Nav
             }
         }
 
-        boolean forceShowBack = pinningActive || (disableHome && !disableBack);
-
-        getBackButton().setVisibility(disableBack || (!forceShowBack && mFullGestureMode)
-                ? View.INVISIBLE : View.VISIBLE);
-        getHomeButton().setVisibility(disableHome ? View.INVISIBLE : View.VISIBLE);
+        getBackButton().setVisibility(disableBack      ? View.INVISIBLE : View.VISIBLE);
+        getHomeButton().setVisibility(disableHome      ? View.INVISIBLE : View.VISIBLE);
         getRecentsButton().setVisibility(disableRecent ? View.INVISIBLE : View.VISIBLE);
     }
 
     public boolean inScreenPinning() {
         return ActivityManagerWrapper.getInstance().isScreenPinningActive();
-    }
-
-    public void setFullGestureMode(boolean full) {
-        mFullGestureMode = full;
-    }
-
-    public boolean isFullGestureMode() {
-        return mFullGestureMode;
     }
 
     public void setLayoutTransitionsEnabled(boolean enabled) {

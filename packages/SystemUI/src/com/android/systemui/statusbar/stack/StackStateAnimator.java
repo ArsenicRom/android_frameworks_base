@@ -48,7 +48,6 @@ public class StackStateAnimator {
     public static final int ANIMATION_DURATION_DIMMED_ACTIVATED = 220;
     public static final int ANIMATION_DURATION_CLOSE_REMOTE_INPUT = 150;
     public static final int ANIMATION_DURATION_HEADS_UP_APPEAR = 550;
-    public static final int ANIMATION_DURATION_BLOCKING_HELPER_FADE = 240;
     public static final int ANIMATION_DURATION_HEADS_UP_APPEAR_CLOSED
             = (int) (ANIMATION_DURATION_HEADS_UP_APPEAR
                     * HeadsUpAppearInterpolator.getFractionUntilOvershoot());

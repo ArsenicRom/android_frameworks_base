@@ -319,8 +319,8 @@ public class Camera {
                 }
             }
         }
-        int numberOfCameras = _getNumberOfCameras();
-        if (exposeAuxCamera == false && (numberOfCameras > 2)) {
+        int numberOfCameras = native_getNumberOfCameras();
+        if ((numberOfCameras > 2) && !shouldExposeAuxCamera()) {
             numberOfCameras = 2;
         }
         return numberOfCameras;

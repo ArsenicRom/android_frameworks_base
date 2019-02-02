@@ -2945,6 +2945,120 @@ public final class Settings {
         private static final Validator ADVANCED_SETTINGS_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Show or hide clock
+         * 0 - hide
+         * 1 - show (default)
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK = "status_bar_clock";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_CLOCK_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
+
+        /**
+         * Style of clock
+         * 0 - Left Clock (default)
+         * 1 - Center Clock
+         * 2 - Right Clock
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_STYLE = "statusbar_clock_style";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_STYLE_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Whether to show seconds next to clock in status bar
+         * 0 - hide (default)
+         * 1 - show
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SECONDS = "status_bar_clock_seconds";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_CLOCK_SECONDS_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * AM/PM Style for clock options
+         * 0 - Normal AM/PM
+         * 1 - Small AM/PM
+         * 2 - No AM/PM  (default)
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_AM_PM_STYLE = "statusbar_clock_am_pm_style";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_AM_PM_STYLE_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Shows custom date before clock time
+         * 0 - No Date
+         * 1 - Small Date
+         * 2 - Normal Date
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_DISPLAY = "statusbar_clock_date_display";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_DATE_DISPLAY_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Sets the date string style
+         * 0 - Regular style
+         * 1 - Lowercase
+         * 2 - Uppercase
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_STYLE = "statusbar_clock_date_style";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Stores the java DateFormat string for the date
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
+         * Position of date
+         * 0 - Left of clock
+         * 1 - Right of clock
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_POSITION = "statusbar_clock_date_position";
+
+        /** @hide */
+        public static final Validator STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
+
+        /**
+         * Clock font color
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
+
+        /**
+         * Clock font size
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SIZE = "status_bar_clock_size";
+
+        /**
+         * Clock font style
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_FONT_STYLE = "status_bar_clock_font_style";
+
+        /**
          * ADVANCED_SETTINGS default value.
          * @hide
          */
@@ -4220,6 +4334,24 @@ public final class Settings {
         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
 
         /**
+         * Override and forcefully disable the fullscreen keyboard
+         * @hide
+         */
+        public static final String DISABLE_FULLSCREEN_KEYBOARD = "disable_fullscreen_keyboard";
+
+        /**
+         * Automatic keyboard rotation timeout.  0 to disable completely.
+         * @hide
+         */
+        public static final String KEYBOARD_ROTATION_TIMEOUT = "keyboard_rotation_timeout";
+
+        /**
+         * Forces formal text input.  1 to replace emoticon key with enter key.
+         * @hide
+         */
+        public static final String FORMAL_TEXT_INPUT = "formal_text_input";
+
+        /**
          * Whether the phone volume up / down effect should be played
          * @hide
          */
@@ -4281,6 +4413,12 @@ public final class Settings {
          */
         public static final String VIBRATE_ON_DISCONNECT = "vibrate_on_disconnect";
 
+        /**
+         * Wether navigation bar is enabled or not
+         * @hide
+         */
+	public static final String NAVIGATION_BAR_SHOW = "navigation_bar_show";
+
         /**  
          * AOKP Custom System Animations
          * @hide
@@ -4337,156 +4475,6 @@ public final class Settings {
         public static final String LISTVIEW_INTERPOLATOR = "listview_interpolator";
 
         /**
-         * If On-The-Go should be displayed at the power menu.
-         *
-         * @hide
-         */
-        public static final String GLOBAL_ACTIONS_ONTHEGO = "global_actions_onthego";
-
-        /**
-         * The alpha value of the On-The-Go overlay.
-         *
-         * @hide
-         */
-        public static final String ON_THE_GO_ALPHA = "on_the_go_alpha";
-
-        /**
-         *
-         * @hide
-         */
-        public static final String ON_THE_GO_SERVICE_RESTART = "on_the_go_service_restart";
-
-        /**
-         * The camera instance to use.
-         * 0 = Rear Camera
-         * 1 = Front Camera
-         *
-         * @hide
-         */
-        public static final String ON_THE_GO_CAMERA = "on_the_go_camera";
-
-        /**
-          * Volume keys control cursor in text fields (default is 0)
-          * 0 - Disabled
-          * 1 - Volume up/down moves cursor left/right
-          * 2 - Volume up/down moves cursor right/left
-          * @hide
-          */
-         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
-
-        /**
-         * Override and forcefully disable the fullscreen keyboard
-         * @hide
-         */
-        public static final String DISABLE_FULLSCREEN_KEYBOARD = "disable_fullscreen_keyboard";
-
-        /**
-         * Automatic keyboard rotation timeout.  0 to disable completely.
-         * @hide
-         */
-        public static final String KEYBOARD_ROTATION_TIMEOUT = "keyboard_rotation_timeout";
-
-        /**
-         * Forces formal text input.  1 to replace emoticon key with enter key.
-         * @hide
-         */
-        public static final String FORMAL_TEXT_INPUT = "formal_text_input";
-
-        /**
-         * Allow all rotations.
-         * @hide
-         */
-        public static final String ACCELEROMETER_ROTATION_ANGLES = "accelerometer_rotation_angles";
-
-        /**
-         * Change volume up and down handlign based on rotation
-         * @hide
-         */
-        public static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
-
-        /**
-         * Whether to disable ripple on lockscreen pin entry
-         * @hide
-         */
-        public static final String LOCKSCREEN_PIN_RIPPLE = "lockscreen_pin_ripple";
->>>>>>> d3c1c5a... core: Materialize Toast notifications
-
-        /**
-         * Pie toggles torch
-         * @hide
-         */
-        public static final String PA_PIE_TORCH = "pa_pie_torch";
-
-        /**
-         * Pie power menu
-         * @hide
-         */
-        public static final String PA_PIE_POWER_MENU = "pa_pie_power_menu";
-
-        /**
-         * Pie expanded desktop
-         * @hide
-         */
-        public static final String PA_PIE_EXPANDED_DESKTOP = "pa_pie_expanded_desktop";
-
-       // PIE COLORS EVERYWHERE! //
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_ENABLE_COLOR = "pa_pie_enable_color";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_JUICE = "pa_pie_juice";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_BUTTON_COLOR = "pa_pie_button_color";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_SNAP_BACKGROUND = "pa_pie_snap_background";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_BACKGROUND = "pa_pie_background";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_SELECT = "pa_pie_select";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_OUTLINES = "pa_pie_outlines";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_STATUS_CLOCK = "pa_pie_status_clock";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_STATUS = "pa_pie_status";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_CHEVRON = "pa_pie_chevron";
-
-        /**
-         * @hide
-         */
-        public static final String PA_PIE_ALWAYS_RIGHT = "pa_pie_always_right";
-
-        /**
          * Whether to show the battery bar
          * @hide
          */
@@ -4536,6 +4524,20 @@ public final class Settings {
          * @hide
          */
         public static final String BATTERY_BAR_USE_GRADIENT_COLOR = "battery_bar_use_gradient_color";
+
+        /**
+         * Applications list where heasdup should't show
+         *
+         * @hide
+         */
+	public static final String HEADS_UP_STOPLIST_VALUES = "heads_up_stoplist_values";
+
+         /**
+         * Which applications to disable heads up notifications for
+         *
+         * @hide
+         */
+	public static final String HEADS_UP_BLACKLIST_VALUES = "heads_up_blacklist_values";
 
         /**
          * 0 - fullscreen
@@ -4910,11 +4912,6 @@ public final class Settings {
          * @hide
          */
         public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
-
-        /**
-         * @hide
-         */
-        public static final String FULL_GESTURE_NAVBAR = "full_gesture_navbar";
 
         /**
          * Whether to launch default music player when headset plugged in
@@ -5346,6 +5343,14 @@ public final class Settings {
             NOTIFICATION_VIBRATION_INTENSITY,
             HAPTIC_FEEDBACK_INTENSITY,
             DISPLAY_COLOR_MODE,
+            STATUS_BAR_CLOCK,
+            STATUSBAR_CLOCK_STYLE,
+            STATUS_BAR_CLOCK_SECONDS,
+            STATUSBAR_CLOCK_AM_PM_STYLE,
+            STATUSBAR_CLOCK_DATE_DISPLAY,
+            STATUSBAR_CLOCK_DATE_STYLE,
+            STATUSBAR_CLOCK_DATE_FORMAT,
+            STATUSBAR_CLOCK_DATE_POSITION,
             OMNIJAWS_WEATHER_ICON_PACK,
             OMNI_LOCKSCREEN_WEATHER_ENABLED,
             BURN_IN_PROTECTION,
@@ -5475,6 +5480,14 @@ public final class Settings {
             PRIVATE_SETTINGS.add(EGG_MODE);
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
+            PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_STYLE);
+            PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK_SECONDS);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_AM_PM_STYLE);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_DISPLAY);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_POSITION);
             PRIVATE_SETTINGS.add(USE_BOTTOM_GESTURE_NAVIGATION);
             PRIVATE_SETTINGS.add(SCREENSHOT_DEFAULT_MODE);
             PRIVATE_SETTINGS.add(QS_ROWS_PORTRAIT);
@@ -5587,6 +5600,14 @@ public final class Settings {
             VALIDATORS.put(WIFI_STATIC_DNS1, WIFI_STATIC_DNS1_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_DNS2, WIFI_STATIC_DNS2_VALIDATOR);
             VALIDATORS.put(SHOW_BATTERY_PERCENT, SHOW_BATTERY_PERCENT_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_CLOCK, STATUS_BAR_CLOCK_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_STYLE, STATUSBAR_CLOCK_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_CLOCK_SECONDS, STATUS_BAR_CLOCK_SECONDS_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_AM_PM_STYLE, STATUSBAR_CLOCK_AM_PM_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_DISPLAY, STATUSBAR_CLOCK_DATE_DISPLAY_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
+            VALIDATORS.put(STATUSBAR_CLOCK_DATE_FORMAT, STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR);
             VALIDATORS.put(OMNIJAWS_WEATHER_ICON_PACK, OMNIJAWS_WEATHER_ICON_PACK_VALIDATOR);
             VALIDATORS.put(OMNI_LOCKSCREEN_WEATHER_ENABLED,
                     OMNI_LOCKSCREEN_WEATHER_ENABLED_VALIDATOR);
@@ -8991,80 +9012,7 @@ public final class Settings {
          */
         public static final String AMBIENT_RECOGNITION_INTERVAL = "ambient_recognition_interval";
 
-        /*
-         * Whether to show PIE controls on the screen.
-         * 0 = OFF
-         * 1 = ON
-         * Changes aspect depends on status bar visibility.
-         * @hide
-         */
-        public static final String PIE_STATE = "pie_state";
-
-        /**
-         * PIE controls current location.
-         * Gravity.BOTTOM (default)
-         * Gravity.LEFT
-         * Gravity.RIGHT
-         * @hide
-         */
-        public static final String PIE_GRAVITY = "pie_gravity";
-
-        /**
-         * Whether to show battery circle in PIE controls.
-         * 0 = Text only
-         * 1 = Circle only
-         * 2 = Text and circle
-         * @hide
-         */
-        public static final String PIE_BATTERY_MODE = "pie_battery_mode";
-
-        /**
-         * PIE controls theme mode.
-         * 0 = AUTO
-         * 1 = WHITE
-         * 2 = DARK
-         * @hide
-         */
-        public static final String PIE_THEME_MODE = "pie_theme_mode";
-
-        /**
-         * PIE controls status indicator mode.
-         * 0 = BOTH
-         * 1 = WIFI ONLY
-         * 2 = MOBILE NETWORK ONLY
-         * 3 = NONE
-         * @hide
-         */
-        public static final String PIE_STATUS_INDICATOR = "pie_status_indicator";
-
-        /**
-         * Used to store the last used system ui flags to make qs settings stick after reboot
-         * @hide
-         */
-        public static final String LAST_SYSTEM_DESIGN_FLAGS = "last_system_design_flags";
-
-        /**
-         * Setting to record how the look and feel of the system should be tweaked. This
-         * should be used in combination with magic.
-         *
-         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_NAV
-         * @see android.view.View#SYSTEM_DESIGN_FLAG_IMMERSIVE_STATUS
-         * @hide
-         */
-        public static final String SYSTEM_DESIGN_FLAGS = "system_design_flags";
-
-        /**
-         * Settings to reset on user request. They will fall back to their default value (0).
-         *
-         * @hide
-         */
-        public static final String[] SETTINGS_TO_RESET = {
-            PIE_STATE,
-            PIE_GRAVITY
-        };
-
-
-	    /**
+	/**
          * Whether to use edge gestures to navigate.
          * @hide
          */
@@ -9357,12 +9305,6 @@ public final class Settings {
          * @hide
          */
         public static final String FACE_AUTO_UNLOCK = "face_auto_unlock";
-
-        /**
-         * Add or remove software navigation bar
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_VISIBLE = "navigation_bar_visible";
 
         /**
          * Whether user is allowed to pull down quick settings on secure keyguard.
@@ -12756,6 +12698,12 @@ public final class Settings {
          * @hide
          */
         public static final String GPU_DEBUG_LAYERS = "gpu_debug_layers";
+
+        /**
+         * Whether to show the IME switcher in the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_IME_SWITCHER = "status_bar_ime_switcher";
 
         /**
          * Control whether the process CPU usage meter should be shown.

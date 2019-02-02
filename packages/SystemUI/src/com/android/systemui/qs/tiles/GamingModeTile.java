@@ -112,7 +112,7 @@ public class GamingModeTile extends QSTileImpl<BooleanState> {
             Settings.Global.putInt(mContext.getContentResolver(),
                         Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 1);
         }
-        // Hardware keys
+        /*// Hardware keys
         boolean isHwKeysOn = Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.HARDWARE_KEYS_DISABLE, 0) == 0;
         if (enabled && isHwKeysOn) {
@@ -121,7 +121,7 @@ public class GamingModeTile extends QSTileImpl<BooleanState> {
         } else if (!enabled) {
             Settings.Secure.putInt(mContext.getContentResolver(),
                     Settings.Secure.HARDWARE_KEYS_DISABLE, 0);
-        }
+        }*/
         // Ringer changed to "Vibrate mode"
         if (enabled) {
             int oldState = mAudioManager.getRingerModeInternal();

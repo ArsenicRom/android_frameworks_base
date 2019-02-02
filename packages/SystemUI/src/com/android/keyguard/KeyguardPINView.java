@@ -18,6 +18,7 @@ package com.android.keyguard;
 
 import android.content.Context;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,7 @@ public class KeyguardPINView extends KeyguardPinBasedInputView {
             });
         }
 
-        boolean scramblePin = (LineageSettings.System.getIntForUser(getContext().getContentResolver(),
+        boolean scramblePin = (LineageSettings.System.getInt(getContext().getContentResolver(),
                 LineageSettings.System.LOCKSCREEN_PIN_SCRAMBLE_LAYOUT, 0) == 1);
         if (scramblePin) {
             Collections.shuffle(sNumbers);

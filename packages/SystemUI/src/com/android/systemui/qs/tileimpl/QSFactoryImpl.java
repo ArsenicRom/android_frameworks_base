@@ -56,12 +56,9 @@ import com.android.systemui.qs.tiles.LocaleTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.LteTile;
 import com.android.systemui.qs.tiles.MusicTile;
-import com.android.systemui.qs.tiles.NavBarTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.ReadingModeTile;
-import com.android.systemui.qs.tiles.RebootTile;
-import com.android.systemui.qs.tiles.PieTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenrecordTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
@@ -160,16 +157,12 @@ public class QSFactoryImpl implements QSFactory {
                 return new SoundTile(mHost);
             case "aod":
                 return new AODTile(mHost);
-            case "navbar":
-                return new NavBarTile(mHost);
             case "screenshot":
                 return new ScreenshotTile(mHost);
             case "smartpixels":
                 return new SmartPixelsTile(mHost);
             case "cpuinfo":
                 return new CPUInfoTile(mHost);
-            case "reboot":
-                return new RebootTile(mHost);
             case "camera":
                 return new CameraTile(mHost);
             case "alarm":
@@ -200,8 +193,6 @@ public class QSFactoryImpl implements QSFactory {
                 return new ThemeTile(mHost);
             case "nowplaying":
                 return new AmbientPlayTile(mHost);
-            case "pie":
-                return new PieTile(mHost);
             case "locale":
                 return new LocaleTile(mHost);
             case "anbi":

@@ -143,8 +143,6 @@ public final class PowerManagerService extends SystemService
     private static final int MSG_CHECK_FOR_LONG_WAKELOCKS = 4;
     private static final int MSG_WAKE_UP = 5;
 
-    private static final int MSG_WAKE_UP = 5;
-
     // Dirty bit: mWakeLocks changed
     protected static final int DIRTY_WAKE_LOCKS = 1 << 0;
     // Dirty bit: mWakefulness changed
@@ -710,8 +708,6 @@ public final class PowerManagerService extends SystemService
     private boolean mForceNavbar;
 
     private LcdPowerSaveInternal mLcdPowerSaveInternal;
-    private SensorManager mSensorManager;
-    private Sensor mProximitySensor;
     private boolean mProximityWake;
 
     public PowerManagerService(Context context) {
@@ -5221,7 +5217,7 @@ public final class PowerManagerService extends SystemService
         }
     }
 
-    private void runWithProximityCheck(final Runnable r) {
+    /*private void runWithProximityCheck(final Runnable r) {
         if (mHandler.hasMessages(MSG_WAKE_UP)) {
             // There is already a message queued;
             return;
@@ -5234,9 +5230,9 @@ public final class PowerManagerService extends SystemService
         } else {
             r.run();
         }
-    }
+    }*/
 
-    private void runPostProximityCheck(final Runnable r) {
+    /*private void runPostProximityCheck(final Runnable r) {
         if (mSensorManager == null) {
             r.run();
             return;
@@ -5258,5 +5254,5 @@ public final class PowerManagerService extends SystemService
              @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {}
          }, mProximitySensor, SensorManager.SENSOR_DELAY_FASTEST);
-    }
+    }*/
 }

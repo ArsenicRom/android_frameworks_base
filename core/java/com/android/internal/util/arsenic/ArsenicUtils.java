@@ -16,12 +16,14 @@
 
 package com.android.internal.util.arsenic;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog; 
 import android.app.IActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.input.InputManager;

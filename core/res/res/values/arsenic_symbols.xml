@@ -95,6 +95,13 @@
   <!-- Screenrecord -->
   <java-symbol type="bool" name="config_enableScreenrecordChord" />
 
+  <!-- IMESwitcher -->
+  <java-symbol type="bool" name="config_show_cmIMESwitcher"/>
+
+  <!-- HW keys binding -->
+  <java-symbol type="anim" name="custom_app_in" />
+  <java-symbol type="anim" name="custom_app_out" />
+
   <!-- Whether device has dash charging support -->
   <java-symbol type="bool" name="config_hasDashCharger" />
 

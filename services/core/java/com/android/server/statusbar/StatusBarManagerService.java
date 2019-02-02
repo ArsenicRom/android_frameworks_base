@@ -22,6 +22,8 @@ import android.app.ActivityThread;
 import android.app.StatusBarManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.hardware.biometrics.IBiometricPromptReceiver;
 import android.os.Binder;
@@ -866,22 +868,20 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
     }
 
-    @Override
-    public void toggleOrientationListener(boolean enable) {
-        if (mBar != null) {
-            try {
-                mBar.toggleOrientationListener(enable);
-            } catch (RemoteException ex) {
-                // system is dead
-            }
-        }
-    }
-
     private void enforceStatusBarOrShell() {
         if (Binder.getCallingUid() == Process.SHELL_UID) {
             return;
         }
         enforceStatusBar();
+    }
+
+    @Override
+    public void setAutoRotate(boolean enabled) {
+        if (mBar != null) {
+            try {
+                mBar.setAutoRotate(enabled);
+            } catch (RemoteException ex) {}
+        }
     }
 
     private void enforceStatusBar() {
