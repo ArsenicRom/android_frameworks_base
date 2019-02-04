@@ -41,6 +41,10 @@ import com.android.systemui.statusbar.policy.NetworkControllerImpl;
 import com.android.systemui.statusbar.policy.SecurityController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
+
+import org.lineageos.internal.util.TelephonyExtUtils;
+import org.lineageos.internal.util.TelephonyExtUtils.ProvisioningChangedListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -425,7 +429,7 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         private MobileIconState(int subId, Context context) {
             super();
             this.subId = subId;
-           this.context = context;
+            this.context = context;
 
             TelephonyExtUtils extTelephony = TelephonyExtUtils.getInstance(context);
             this.provisioned = !extTelephony.hasService() || extTelephony.isSubProvisioned(subId);
@@ -446,6 +450,7 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
                     typeId == that.typeId &&
                     roaming == that.roaming &&
                     needsLeadingPadding == that.needsLeadingPadding &&
+                    provisioned == that.provisioned &&
                     Objects.equals(typeContentDescription, that.typeContentDescription) &&
                     volteId == that.volteId;
         }
@@ -472,6 +477,7 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
             other.typeId = typeId;
             other.roaming = roaming;
             other.needsLeadingPadding = needsLeadingPadding;
+            other.provisioned = provisioned;
             other.typeContentDescription = typeContentDescription;
             other.volteId = volteId;
         }
