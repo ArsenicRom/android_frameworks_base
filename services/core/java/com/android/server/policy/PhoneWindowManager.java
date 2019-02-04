@@ -1001,6 +1001,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_NAVIGATION = 1;
 
     private LineageHardwareManager mLineageHardware;
+    private boolean mClearedBecauseOfForceShow;
+    private boolean mTopWindowIsKeyguard;
 
     private boolean mOmniSwitchRecents;
 
@@ -10493,6 +10495,28 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTorchEnabled = false;
             cancelTorchOff();
         }
+    }
+
+    private static int getSystemUiVisibility(WindowState win, LayoutParams attrs) {
+        attrs = attrs != null ? attrs : win.getAttrs();
+        int vis = win != null ? win.getSystemUiVisibility()
+                : (attrs.systemUiVisibility | attrs.subtreeSystemUiVisibility);
+        return WindowManagerPolicyControl.getSystemUiVisibility(vis, attrs);
+    }
+
+    private static int getWindowFlags(WindowState win, LayoutParams attrs) {
+        attrs = attrs != null ? attrs : win.getAttrs();
+        return WindowManagerPolicyControl.getWindowFlags(attrs.flags, attrs);
+    }
+
+    private static int getPrivateWindowFlags(WindowState win, LayoutParams attrs) {
+        attrs = attrs != null ? attrs : win.getAttrs();
+        return WindowManagerPolicyControl.getPrivateWindowFlags(attrs.privateFlags, attrs);
+    }
+
+    private static int adjustClearableFlags(WindowState win, int clearableFlags) {
+        final LayoutParams attrs = win != null ? win.getAttrs() : null;
+        return WindowManagerPolicyControl.adjustClearableFlags(attrs, clearableFlags);
     }
 
     private static String allowAllRotationsToString(int allowAll) {

@@ -58,6 +58,7 @@
         <item><xliff:g id="id">@string/status_bar_battery</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_center_clock</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_right_clock</xliff:g></item>
+        <item><xliff:g id="id">@string/status_bar_su</xliff:g></item>
     </string-array>
 
     <string translatable="false" name="status_bar_rotate">rotate</string>
@@ -92,6 +93,7 @@
     <string translatable="false" name="status_bar_vpn">vpn</string>
     <string translatable="false" name="status_bar_ethernet">ethernet</string>
     <string translatable="false" name="status_bar_airplane">airplane</string>
+    <string translatable="false" name="status_bar_su">su</string>
 
     <!-- Flag indicating whether the surface flinger has limited
          alpha compositing functionality in hardware.  If set, the window
@@ -3542,4 +3544,8 @@
 
     <!-- Minimal height of bottom stack when IME is displayed -->
     <dimen name="config_bottom_stack_minimal_height">0dp</dimen>
+  
+    <!-- Component name for default assistant on this device -->
+    <string name="config_defaultAssistantComponentName"></string>
+
 </resources>
